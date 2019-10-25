@@ -7,7 +7,7 @@ module CmChallenge
 
     def to_ical
       absence_list = get_absences
-      
+
       cal = Icalendar::Calendar.new
 
       absence_list.each do |absence|
@@ -30,6 +30,12 @@ module CmChallenge
 
       f = File.new("calendar.ical", "w")
       f.write(cal.to_ical)
+
+      p File.dirname(f)
+    end
+
+    def a
+      p File.exist?("calendar.ical")
     end
 
     def get_absences
