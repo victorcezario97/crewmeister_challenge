@@ -28,14 +28,10 @@ module CmChallenge
         cal.publish
       end
 
-      f = File.new("calendar.ical", "w")
+      f = File.new("#{Rails.root}/public/calendar.ical", "w")
       f.write(cal.to_ical)
 
-      p File.dirname(f)
-    end
-
-    def a
-      p File.exist?("calendar.ical")
+      return File.dirname(f)
     end
 
     def get_absences

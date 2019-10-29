@@ -19,6 +19,7 @@ class AbsencesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should generate an iCal file' do
     path = @absences.to_ical
+    
     assert(File.exist?(path + '/calendar.ical'))
   end
 
