@@ -1,24 +1,23 @@
 # README
+Crewmeister coding challenge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Implementation of a .ical file generator from given .json files and an Api class.
 
-Things you may want to cover:
+# Usage:
+Install ruby 2.5.1
 
-* Ruby version
+Install Rails 6.0.0
 
-* System dependencies
+Run rails t to assert all tests are working properly
 
-* Configuration
+Run rails server to get the application running
 
-* Database creation
+Access localhost:3000/ to download the full .ical file
 
-* Database initialization
+Parameters: 
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ * userId=xxxx => download .ical file with events from a specific user
+  
+ * startDate=yyyy-mm-dd&endDate=yyyy-mm-dd => download .ical file with events happening within the date interval specified
+ 
+ * These parameters can also be used together e.g. http://localhost:3000?userId=2664&startDate=2017-01-01&endDate=2017-02-01 
