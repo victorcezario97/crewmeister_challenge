@@ -17,23 +17,30 @@ class AbsencesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return a list of absences including the names of the employees' do
-    absence_list = @absences.get_absences(nil)
+    absence_list = @absences.get_absences(nil, nil, nil)
     assert_not_nil(absence_list)
     absence_list.each { |absence| assert_not_nil(absence[:name])}
   end
 
   test 'should generate an iCal file' do
-    path = @absences.to_ical(nil)
+    @absences.to_ical(nil, nil, nil)
 
-    assert(File.exist?(path + '/calendar.ical'))
+    assert(File.exist?(@download_path + 'calendar.ical'))
   end
 
   test 'should return a list of only the absences of a given user' do
     user = "2664"
-    list = @absences.get_absences(user)
-    p list
+    list = @absences.get_absences(user, nil, nil)
     assert_not_empty(list)
     list.each { |absence| assert(absence[:user_id].to_s == user) }
+  end
+
+  test 'should return a list of only the absences inside the given date interval' do
+    start_date = "2017-01-04"
+    end_date = "2017-01-14"
+    list = @absences.get_absences(nil, start_date, end_date)
+    assert_not_empty(list)
+    list.each { |absence| assert(Date.parse(absence[:start_date]) >= Date.parse(start_date) && Date.parse(absence[:end_date]) <= Date.parse(end_date)) }
   end
 
 end
