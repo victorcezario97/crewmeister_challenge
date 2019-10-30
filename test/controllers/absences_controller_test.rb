@@ -17,15 +17,23 @@ class AbsencesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return a list of absences including the names of the employees' do
-    absence_list = @absences.get_absences
+    absence_list = @absences.get_absences(nil)
     assert_not_nil(absence_list)
     absence_list.each { |absence| assert_not_nil(absence[:name])}
   end
 
   test 'should generate an iCal file' do
-    path = @absences.to_ical
+    path = @absences.to_ical(nil)
 
     assert(File.exist?(path + '/calendar.ical'))
+  end
+
+  test 'should return a list of only the absences of a given user' do
+    user = "2664"
+    list = @absences.get_absences(user)
+    p list
+    assert_not_empty(list)
+    list.each { |absence| assert(absence[:user_id].to_s == user) }
   end
 
 end
